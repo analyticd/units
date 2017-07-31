@@ -88,11 +88,7 @@
 ;   (if (speed > '(q 55 mph)) (print "speeding")))
 
 
-(in-package :cl-user)
-(defpackage units
-  (:use #:cl))
-(in-package :units)
-
+(in-package #:units)
 
 ;;; From unitsc.lisp
 
