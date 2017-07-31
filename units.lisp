@@ -87,6 +87,57 @@
 ; (gldefun test (speed\:(units real (/ (* atto parsec) (* micro fortnight))))
 ;   (if (speed > '(q 55 mph)) (print "speeding")))
 
+
+(in-package :cl-user)
+(defpackage units
+  (:use #:cl))
+(in-package :units)
+
+
+;;; From unitsc.lisp
+
+(defmacro glispconstantflg    (x) `(get ,x 'glispconstantflg))
+(defmacro glispconstantval    (x) `(get ,x 'glispconstantval))
+(defmacro quotep (x) `(and (consp ,x) (eq (car ,x) 'quote)))
+
+; 28 Apr 94
+; Cube root
+; returns a negative real root for a negative argument.
+(defun cbrt (x)
+  (and (numberp x) (if (>= x 0) (expt x 1/3) (- (expt (- x) 1/3)))))
+
+; modified version for stand-alone use with units
+; 27 Mar 89; 06 Jun 90; 20 May 93; 03 Jan 95; 18 Apr 03
+(defun glerror (fn msgstr &rest args)
+  (format t "error detected by ~A~%" fn)
+  (apply #'format (cons t (cons msgstr args)))
+  (terpri) )
+
+; modified version for stand-alone use with units
+; 15-Feb-89; 05 Apr 90; 12 Sep 91; 18 Sep 91; 19 Sep 91; 17 Jan 92; 03 Nov 92
+; 10 Nov 95; 26 Jul 96; 18 Apr 03
+; Get the value of a compile-time constant 
+(defun glconstval (x)
+  (cond ((or (null x)
+	     (eq x t)
+	     (numberp x)
+	     (characterp x)
+	     (stringp x))
+	  x)
+	((and (symbolp x) (constantp x)) (eval x))
+	((quotep x) (cadr x))
+	((and (symbolp x)
+	      (glispconstantflg x))
+	  (glispconstantval x))
+	(t (error "NOMSG"))))
+
+; 18 Apr 03
+(defun glunitexpansion (u)
+  (let ((flat (glunitexpand u)))
+    (list '/ (cons '* (car flat)) (cons '* (cadr flat))) ))
+
+;;; From units.lisp
+
 (defmacro gldimension     (x) `(get ,x 'gldimension))
 (defmacro glunittype      (x) `(get ,x 'glunittype))
 (defmacro glsiconversion  (x) `(get ,x 'glsiconversion))
@@ -267,7 +318,7 @@
 	  (if (symbolp unit)
 	      (or (gldimension unit)
 		  (gldimension (glactualunit unit)))
-	      (error "~A is not a unit")))
+	      (error "~A is not a unit" unit)))
       (if (eq (car unit) '*)
 	  (let ((dim 0))
 	    (dolist (u (cdr unit) dim)
@@ -1269,3 +1320,4 @@
 (defconstant *elementary-charge* '(q 1.6021892e-19 coulomb))
 (defconstant *electron-mass*     '(q 9.109534e-31 kilogram))
 (defconstant *earth-gravity*     '(q 9.80665 (/ meter (* second second))))
+
