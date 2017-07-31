@@ -1,0 +1,102 @@
+* Units
+** Author: Gordon S. Novak Jr.
+** Date: 10 May 04
+** Description
+Software for conversion and simplification of Units of Measurement
+** Copyright
+Copyright (c) 2004 Gordon S. Novak Jr. and The University of Texas at Austin.
+** License
+GNU General Public License.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software Foundation,
+Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+gnu@gnu.org, http://www.gnu.org/, 617 542-5942, fax 617 542-2652.
+
+Floating-point numbers that are returned as conversion factors
+by this software may appear to have more digits of accuracy than are
+justified by the accuracy of the underlying conversion factors.
+
+Written by: Gordon S. Novak Jr., Department of Computer Sciences,
+University of Texas at Austin  78712.    novak@cs.utexas.edu
+http://www.cs.utexas.edu/users/novak/
+** Acknowledgements
+Thanks to Erik Enge (erik@nittin.net) for thorough testing and suggestions
+and to him and Kevin Rosenberg for making this a Debian package.
+** History
+converted from Interlisp " 1-MAR-82 17:36:34" {DSK}MEASUREMENT.LSP;8 15862
+adapted from ./physics/measu.lsp of 29 Aug 90 for use with GLISP compiler
+modified 03 June 93 for paper on units: replaced MKS by SI.
+05 Jun 95; 15 Dec 95; 09 Mar 99; 17 Mar 99; 20 May 99; 03 May 01; 02 Apr 02
+17 Apr 02; 08 Apr 03; 18 Apr 03; 22 May 03; 26 Jan 04; 04 Feb 04; 13 Feb 04
+16 Mar 04; 19 Mar 04; 26 Mar 04; 08 Apr 04; 09 Apr 04; 12 Apr 04; 13 Apr 04
+15 Apr 04
+** Usage
+Use the following to import the basic functions to the package where used:
+#+begin_src lisp
+(import '(units:glconvertunit units:glsimplifyunit units:glunitp
+          units:*glunitenable* units:glmultunits units:glsimplunit
+          units:gldivunits units:gldominantunit units:glsqrtunit))
+#+end_src
+To make the basic conversion functions have easier names, do:
+#+begin_src lisp
+(setf (symbol-function 'convertu)  (symbol-function 'units:glconvertunit))
+(setf (symbol-function 'simplifyu) (symbol-function 'units:glsimplifyunit))
+(setf (symbol-function 'unitp)     (symbol-function 'units:glunitp))
+#+end_src
+
+A unit expression is:
+  a number
+  a unit name
+  (* unit-exp1 unit-exp2 ...)
+  (/ unit-exp1 unit-exp2)
+A simplified unit expression will have at most one (/ ...) at the top.
+
+(setq *glunitenable* t) to enable mass -> weight, mass -> energy conversion
+glunitmethod* is set to w2m m2w m2e e2m if this is done.
+
+Examples of unit conversion:  (glconvertunit <from> <to>)
+#+begin_src lisp
+(glconvertunit 'mile 'foot)
+(glconvertunit 'kilogram 'lb)
+(glconvertunit '(/ (* atto parsec) (* micro fortnight)) '(/ inch second))
+(glconvertunit '(* acre foot) 'teaspoon)
+(glconvertunit '(/ (* 2000 kilo calorie) day) 'watt)    ; average human power
+(glconvertunit '(* 100 kgf 4 m) '(* kilo calorie)) ; calories to climb stairs
+#+end_src
+
+The following require (setq *glunitenable* t)
+#+begin_src lisp
+(glconvertunit 'kilogram 'lbf)          ; mass to weight
+(glconvertunit 'gram 'kilowatt-hour)    ; mass to energy
+#+end_src
+
+Examples of unit simplification:
+#+begin_src lisp
+(glsimplifyunit '(/ meter foot))
+(glsimplifyunit '(/ joule watt))
+(glsimplifyunit '(/ joule horsepower))
+(glsimplifyunit '(/ (* kilogram meter) (* second second)))
+(glsimplifyunit 'atm)
+(glsimplifyunit 'atm 'english)
+(glsimplifyunit '(/ (* amp second) volt))
+(glsimplifyunit '(/ (* newton meter) (* ampere second)))
+(glsimplifyunit '(/ (* volt volt) (* lbf (/ (* atto parsec) hour))))
+#+end_src
+
+Example of unit conversion by GLISP compiler:
+#+begin_src lisp
+(gldefun test (speed\:(units real (/ (* atto parsec) (* micro fortnight))))
+  (if (speed > '(q 55 mph)) (print "speeding")))
+#+end_src
+
