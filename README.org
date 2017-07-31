@@ -3,6 +3,8 @@
 ** Date: 10 May 04
 ** Description
 Software for conversion and simplification of Units of Measurement
+** Homepage
+http://www.cs.utexas.edu/users/novak/units.html
 ** Copyright
 Copyright (c) 2004 Gordon S. Novak Jr. and The University of Texas at Austin.
 ** License
