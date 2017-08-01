@@ -1,4 +1,4 @@
-(in-package :units-test)
+(in-package #:units-test)
 
 ;; (deftest test-kg-to-lb ()
 ;;   (is (= 11.023113
@@ -10,3 +10,5 @@
 
 (defun test ()
   (test-kg-to-lb))
+
+;;; Tests can be run with (asdf:oos 'asdf:test-op '#:units)
