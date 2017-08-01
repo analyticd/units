@@ -518,7 +518,7 @@
           (if (symbolp unit)
               (or (gldimension unit)
                   (gldimension (glactualunit unit)))
-              (error "~A is not a unit")))
+              (error "~A is not a unit" unit)))
       (if (eq (car unit) '*)
           (let ((dim 0))
             (dolist (u (cdr unit) dim)
