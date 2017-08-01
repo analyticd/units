@@ -1,3 +1,4 @@
+;;; Not using fiasco for now
 ;; (fiasco:define-test-package #:units-test
 ;;   (:use #:units))
 

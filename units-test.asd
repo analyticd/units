@@ -6,4 +6,5 @@
                 :serial t
                 :components ((:file "package")
                              (:file "test"))))
-  :depends-on (#:units))
+  :depends-on (#:units ;; #:fiasco
+                       ))
