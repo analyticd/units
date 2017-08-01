@@ -1308,11 +1308,11 @@
                     (if (numberp (caar tmp)) (cons (cdar tmp) (cdr tmp)) tmp))
               (glsystemunits (car pr)))) ) ))
 
-(defconstant *speed-of-light*    '(q 2.99792458e8 (/ meter second)))
-(defconstant *gravitational-constant*
+(defparameter *speed-of-light*    '(q 2.99792458e8 (/ meter second)))
+(defparameter *gravitational-constant*
   '(q 6.6720e-11  (/ (* meter meter meter)
                    (* kilogram second second))))
-(defconstant *elementary-charge* '(q 1.6021892e-19 coulomb))
-(defconstant *electron-mass*     '(q 9.109534e-31 kilogram))
-(defconstant *earth-gravity*     '(q 9.80665 (/ meter (* second second))))
+(defparameter *elementary-charge* '(q 1.6021892e-19 coulomb))
+(defparameter *electron-mass*     '(q 9.109534e-31 kilogram))
+(defparameter *earth-gravity*     '(q 9.80665 (/ meter (* second second))))
 
