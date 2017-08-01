@@ -6,7 +6,7 @@
   :license "GPL"
   :serial t
   :components ((:file "package")
-               (:file "units")))
+               (:file "unitse")))
 
 ;;; Run fiasco unit test suite
 ;; (defmethod asdf:perform ((o asdf:test-op) (c (eql (asdf:find-system '#:units))))

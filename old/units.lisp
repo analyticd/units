@@ -86,7 +86,6 @@
 ;; Example of unit conversion by GLISP compiler:
 ;; (gldefun test (speed\:(units real (/ (* atto parsec) (* micro fortnight))))
 ;;   (if (speed > '(q 55 mph)) (print "speeding")))
-                                        ;
 
 (in-package #:units)
 
@@ -303,7 +302,7 @@
            (glunitp (cadr unit))
            (integerp (caddr unit)))
       (progn (if (atom unit) (push unit *glunkunits*))
-             nil) ) )
+             nil)))
 
 ;; 04 Nov 92; 03 Jun 93; 08 Apr 04; 09 Apr 04
 ;; Find dimension from a unit expression.
@@ -775,7 +774,7 @@
                 (dose               (/ (* length length) (* time time))) ) )
   (let ((dim (glunitdim (second pair))))
     (setf (gldimension (first pair)) dim)
-    (pushnew (list dim (first pair)) *gldimtounittype*) ))
+    (pushnew (list dim (first pair)) *gldimtounittype*)))
 
 (gldefsimpleunits 'dimensionless
                   '((radian    1.0                (radians))
@@ -901,7 +900,7 @@
                     (slug             14.593902937  (slugs))
                                         ; derived 02 Jun 95 based on pound, foot, and earth-gravity
                     (atomic-mass-unit 1.6605402e-27 (amu atomic-mass-units))
-                    (earth-mass       5.98e24       ()) ) )
+                    (earth-mass       5.98e24       ())))
 
 (gldefsimpleunits 'time
                   '((second      1.0        (s sec secs seconds)) ))

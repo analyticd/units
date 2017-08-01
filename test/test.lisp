@@ -4,9 +4,13 @@
 ;;   (is (= 11.023113
 ;;          (* 5 (glconvertunit 'kilogram 'lb)))))
 
+;; (defun test-kg-to-lb ()
+;;   (assert (= (* 5 (glconvertunit 'kilogram 'lb))
+;;              11.023113)))
+
 (defun test-kg-to-lb ()
-  (assert (= (* 5 (glconvertunit 'kilogram 'lb))
-             11.023113)))
+  (assert (= (units:glconvertunit 'kilogram 'lb)
+             2.2046227)))
 
 (defun test ()
   (test-kg-to-lb))
