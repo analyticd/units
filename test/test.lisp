@@ -8,12 +8,17 @@
 ;;   (assert (= (* 5 (glconvertunit 'kg 'lb))
 ;;              11.023113)))
 
-(defun test-kg-to-lb ()
-  (assert (= (glconvertunit 'kg 'lb)
-             2.2046227)))
+
+(deftest test-kg-to-lb ()
+  (is (= (glconvertunit 'kg 'lb)
+         2.2046227)))
+
+;; (defun test-kg-to-lb ()
+;;   (assert (= (glconvertunit 'kg 'lb)
+;;              2.2046227)))
 
 ;;; Don't bother with a unit testing library
-(defun test ()
-  (test-kg-to-lb))
+;; (defun test ()
+;;   (test-kg-to-lb))
 
 ;;; Tests can be run with (asdf:oos 'asdf:test-op '#:units)
