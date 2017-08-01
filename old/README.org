@@ -1,0 +1,4 @@
+Testing is currently put here. There is an issue wherein the unit definitions
+are not exported to be used in other packages, e.g., units-test, so
+glunitp fails unless you switch to package units at repl first. Don't want to
+take time to fix testing yet. System works without it. Leaving it as a start.

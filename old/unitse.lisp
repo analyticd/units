@@ -88,8 +88,8 @@
 ;;   (if (speed > '(q 55 mph)) (print "speeding")))
 
 ;; The following two lines can be omitted in older GCL versions:
-(eval-when (:COMPILE-TOPLEVEL :LOAD-TOPLEVEL :EXECUTE)
-  (defpackage :units (:use :common-lisp)))
+;; (eval-when (:COMPILE-TOPLEVEL :LOAD-TOPLEVEL :EXECUTE)
+;;   (defpackage :units (:use :common-lisp)))
 
 (in-package :units)
 
@@ -487,7 +487,7 @@
                         ((= dim *gldimenergytomass*)
                          (setq *glunitmethod* 'e2m) (/ f 8.987554305625E16))
                         (t (setq *glunitdimerror* t) nil))
-                  (progn (setq *glunitdimerror* t) nil))))) ))
+                  (progn (setq *glunitdimerror* t) nil)))))))
 
 ;; 04 Nov 92; 30 Nov 92; 03 Apr 02
 ;; Test whether unit is a legitimate unit specification
@@ -507,7 +507,7 @@
            (= (length unit) 3)
            (every #'glunitp (cdr unit)))
       (progn (if (atom unit) (push unit *glunkunits*))
-             nil) ) )
+             nil)))
 
 ;; 04 Nov 92; 03 Jun 93
 ;; Find dimension from a unit expression.
@@ -518,7 +518,7 @@
           (if (symbolp unit)
               (or (gldimension unit)
                   (gldimension (glactualunit unit)))
-              (error "~A is not a unit")))
+              (error "~A is not a unit" unit)))
       (if (eq (car unit) '*)
           (let ((dim 0))
             (dolist (u (cdr unit) dim)
